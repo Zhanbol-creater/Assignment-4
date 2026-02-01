@@ -1,5 +1,5 @@
 # Assignment-4
-# 🎵 Music Library CLI System
+# Music Library CLI System
 
 - **Single Responsibility** → Each class has one clear responsibility.  
 - **Open/Closed** → Extendable for new media types without modifying core logic.  
@@ -10,7 +10,7 @@
 
 ---
 
-## 🧠 SOLID Principles Applied
+## SOLID Principles Applied
 
 - **Single Responsibility** → Each class has one clear responsibility.  
 - **Open/Closed** → Extendable for new media types without modifying core logic.  
@@ -20,7 +20,7 @@
 
 
 
-## 🧪 Test Scenarios
+## Test Scenarios
 
 -  Add Song → inserts into `songs` table  
 -  Add Podcast → inserts into `podcasts` table  
@@ -30,7 +30,7 @@
 
 ---
 
-## 🧩 Features
+##  Features
 
 - Generics (`CrudRepository<T>`)  
 - Reflection (`ReflectionUtils`)  
@@ -40,15 +40,7 @@
 
 ---
 
-## 🖼️ Screenshots
 
-Stored in `docs/screenshots/`:  
-- CLI menu  
-- Song/Podcast creation  
-- Playlist linking  
-- Error handling  
-
----
 
 ## 📚 Reflection
 
