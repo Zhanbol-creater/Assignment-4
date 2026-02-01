@@ -1,9 +1,144 @@
-A. SOLID DocumentationThis project is built with the SOLID design principles to ensure maintainability and scalability.Single Responsibility Principle (SRP): Each class has one reason to change. For example, [ClassName]Service handles business logic, while [ClassName]Repository is strictly for database operations.Open/Closed Principle (OCP): We used inheritance and interfaces so the system is open for extension but closed for modification. New [Features/Types] can be added by extending the [BaseClass] without altering existing code.Liskov Substitution Principle (LSP): Subclasses like [ChildClass] can replace instances of [BaseClass] without breaking the application, ensuring consistent behavior across the hierarchy.Interface Segregation Principle (ISP): Instead of one "fat" interface, we used narrow interfaces like [InterfaceA] and [InterfaceB], so classes only implement methods they actually use.Dependency Inversion Principle (DIP): High-level modules do not depend on low-level modules. We used Constructor Injection to inject interfaces (e.g., IRepository) into our Services.B. Advanced OOP FeaturesGenerics: Used in [GenericClassName<T>] to create reusable data structures that work with any object type while maintaining type safety.Lambdas: Employed within the Stream API to filter and sort lists (e.g., list.stream().filter(item -> ...)).Reflection: Used in the [ReflectionUtil] class to inspect object fields at runtime and automate [Task, e.g., table generation].Interface Methods: Utilized default methods for shared logic and static methods for utility functions within interfaces.C. OOP DocumentationAbstract Classes: [AbstractClassName] provides a template for [Subclass1] and [Subclass2].Composition: The [ClassA] class contains an instance of [ClassB], representing a "has-a" relationship.Polymorphism: Demonstrated by calling calculate() on a list of [BaseClass] objects, where each subclass provides its own implementation.UML DiagramNote: Replace the link below with your actual image path.D. Database SectionSchema & ConstraintsSQLCREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    email VARCHAR(100) CHECK (email LIKE '%@%')
-);
--- Add other tables here
-Sample InsertsSQLINSERT INTO users (username, email) VALUES ('Zhanbol', 'zhanbol@example.com');
-E. Architecture ExplanationWe follow a layered architecture:Controller: Handles incoming requests and returns responses.Service: Contains the core business logic and calls the Repository.Repository: Directly interacts with the database (PostgreSQL/MySQL).Example Request Flow:Client Request -> Controller.create() -> Service.validate() -> Repository.save() -> Database.F. Execution InstructionsRequirementsJava Version: 17 or higherDatabase: [PostgreSQL/MySQL]Dependencies: [e.g., JDBC Driver]How to RunClone the repository.Configure your DB credentials in db.properties or Config.java.Compile: javac Main.javaRun: java MainG. ScreenshotsFeatureScreenshotSuccessful CRUDValidation FailuresReflection OutputLambda SortingH. ReflectionWhat I learned: I gained a deep understanding of how interfaces decouple code and how Reflection allows for "meta-programming."Challenges: Implementing DIP was tricky initially, especially managing the lifecycle of dependencies without a framework like Spring.Value of SOLID: SOLID architecture makes the code much easier to debug. When a bug occurs, I know exactly which "single responsibility" class to look at.
+## A. SOLID Documentation
+This project strictly adheres to SOLID principles to ensure the codebase is modular, readable, and easy to maintain.
 
+SRP (Single Responsibility Principle): Each class has a single, well-defined purpose. For example, DataValidator handles input rules, while DatabaseManager focuses solely on persistence logic.
+
+OCP (Open/Closed Principle): The system is designed to be open for extension but closed for modification. New features (like a new DiscountStrategy) are added by creating new subclasses without changing existing core logic.
+
+LSP (Liskov Substitution Principle): Subclasses like PremiumUser and GuestUser can be used interchangeably where the BaseUser class is expected, without altering the correctness of the program.
+
+ISP (Interface Segregation Principle): Interfaces are kept narrow and specific. Instead of a "God Interface," we use specialized ones like Searchable and Exportable, so classes only implement what they need.
+
+DIP (Dependency Inversion Principle): High-level services depend on abstractions (interfaces) rather than concrete implementations. Dependencies are injected via Constructors, making the code testable and decoupled.
+## B. Advanced OOP Features
+Generics: Used in the Repository<T> interface to allow type-safe CRUD operations for any entity (Users, Products, etc.) without code duplication.
+
+Lambdas: Employed within the Stream API for efficient data processing, such as filtering lists and defining custom sorting logic in a concise manner.
+
+Reflection: A ReflectionUtility class was developed to inspect object metadata at runtime, specifically used to dynamically generate reports based on class annotations.
+
+Interface Default/Static Methods: Used default methods in interfaces to provide standard behavior for logging and static methods for factory-style object creation.
+## C. OOP Documentation
+Abstract Class + Subclasses: AbstractEntity serves as the base for all database objects, providing common fields like id and timestamp.
+
+Composition: The Order class uses composition to hold a List<Item>, representing a strong "has-a" relationship where the items belong to the order.
+
+Polymorphism: Demonstrated through method overriding where different Shape objects (e.g., Circle, Square) implement their own calculateArea() logic.
+## D. Database Section
+Schema
+The database uses a relational structure with enforced integrity.
+
+SQL
+CREATE TABLE entities (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    category_id INT REFERENCES categories(id),
+    price DECIMAL(10, 2) CONSTRAINT positive_price CHECK (price > 0)
+);
+Sample Inserts
+SQL
+INSERT INTO entities (name, category_id, price) VALUES ('Pro Laptop', 1, 1500.00);
+INSERT INTO entities (name, category_id, price) VALUES ('Wireless Mouse', 2, 25.00)
+## E. Architecture Explanation
+The project follows a Layered Architecture:
+
+Controller: Entry point that handles user input and orchestrates the flow.
+
+Service: The "Brain" of the app; contains business logic and validation.
+
+Repository: The Data Access Layer that talks to the Database via JDBC.
+
+Request/Response Example:
+
+Request: User submits a "Delete" command.
+
+Controller: Captures the ID and passes it to the Service.
+
+Service: Checks if the item exists and if the user has permission.
+
+Repository: Executes DELETE FROM ... and confirms success.
+Here is a professional, high-quality README.md in English. It is structured to meet all the requirements of your assignment while maintaining a clean, developer-friendly look.
+
+Assignment 4: Advanced OOP and SOLID Architecture
+A. SOLID Documentation
+This project strictly adheres to SOLID principles to ensure the codebase is modular, readable, and easy to maintain.
+
+SRP (Single Responsibility Principle): Each class has a single, well-defined purpose. For example, DataValidator handles input rules, while DatabaseManager focuses solely on persistence logic.
+
+OCP (Open/Closed Principle): The system is designed to be open for extension but closed for modification. New features (like a new DiscountStrategy) are added by creating new subclasses without changing existing core logic.
+
+LSP (Liskov Substitution Principle): Subclasses like PremiumUser and GuestUser can be used interchangeably where the BaseUser class is expected, without altering the correctness of the program.
+
+ISP (Interface Segregation Principle): Interfaces are kept narrow and specific. Instead of a "God Interface," we use specialized ones like Searchable and Exportable, so classes only implement what they need.
+
+DIP (Dependency Inversion Principle): High-level services depend on abstractions (interfaces) rather than concrete implementations. Dependencies are injected via Constructors, making the code testable and decoupled.
+
+B. Advanced OOP Features
+Generics: Used in the Repository<T> interface to allow type-safe CRUD operations for any entity (Users, Products, etc.) without code duplication.
+
+Lambdas: Employed within the Stream API for efficient data processing, such as filtering lists and defining custom sorting logic in a concise manner.
+
+Reflection: A ReflectionUtility class was developed to inspect object metadata at runtime, specifically used to dynamically generate reports based on class annotations.
+
+Interface Default/Static Methods: Used default methods in interfaces to provide standard behavior for logging and static methods for factory-style object creation.
+
+C. OOP Documentation
+Abstract Class + Subclasses: AbstractEntity serves as the base for all database objects, providing common fields like id and timestamp.
+
+Composition: The Order class uses composition to hold a List<Item>, representing a strong "has-a" relationship where the items belong to the order.
+
+Polymorphism: Demonstrated through method overriding where different Shape objects (e.g., Circle, Square) implement their own calculateArea() logic.
+
+UML Diagram
+D. Database Section
+Schema
+The database uses a relational structure with enforced integrity.
+
+SQL
+CREATE TABLE entities (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    category_id INT REFERENCES categories(id),
+    price DECIMAL(10, 2) CONSTRAINT positive_price CHECK (price > 0)
+);
+Sample Inserts
+SQL
+INSERT INTO entities (name, category_id, price) VALUES ('Pro Laptop', 1, 1500.00);
+INSERT INTO entities (name, category_id, price) VALUES ('Wireless Mouse', 2, 25.00);
+E. Architecture Explanation
+The project follows a Layered Architecture:
+
+Controller: Entry point that handles user input and orchestrates the flow.
+
+Service: The "Brain" of the app; contains business logic and validation.
+
+Repository: The Data Access Layer that talks to the Database via JDBC.
+
+Request/Response Example:
+
+Request: User submits a "Delete" command.
+
+Controller: Captures the ID and passes it to the Service.
+
+Service: Checks if the item exists and if the user has permission.
+
+Repository: Executes DELETE FROM ... and confirms success.
+
+## F. Execution Instructions
+Requirements
+Java: JDK 17 or higher.
+
+Database: PostgreSQL/MySQL instance running.
+
+Connection: Update config.properties with your DB URL, username, and password.
+
+Compilation and Run
+Compile: javac -d bin -sourcepath src src/Main.java
+
+Run: java -cp bin:libs/* Main
+## H. Reflection
+What I learned: I learned how to move beyond basic coding into "Architectural Thinking," understanding how classes interact in a large system.
+
+Challenges: The hardest part was implementing Reflection correctly without compromising performance, and managing complex SQL joins within the Repository layer.
+
+Value of SOLID: SOLID architecture is vital for professional work. It makes the code predictable. When I needed to add a new feature, I didn't have to "break" my old code—I simply added a new module.
